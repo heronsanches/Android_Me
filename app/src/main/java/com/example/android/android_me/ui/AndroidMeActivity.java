@@ -16,11 +16,13 @@
 
 package com.example.android.android_me.ui;
 
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.android.android_me.R;
+import com.example.android.android_me.data.AndroidImageAssets;
 
 // This activity will display a custom Android image composed of three body parts: head, body, and legs
 public class AndroidMeActivity extends AppCompatActivity {
@@ -29,14 +31,38 @@ public class AndroidMeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        Log.d("tag_me", getClass().getCanonicalName()+" onCreate");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android_me);
 
-        Fragment bodyPartFragment = new BodyPartFragment();
+        if(savedInstanceState == null){
 
-        getSupportFragmentManager().beginTransaction()
-            .add(R.id.frag1, bodyPartFragment, bodyPartFragment.getClass().getCanonicalName())
-            .commit();
+            FragmentManager fm = getSupportFragmentManager();
+
+            BodyPartFragment head = new BodyPartFragment();
+            head.setImageIds(AndroidImageAssets.getHeads());
+            head.setIndexIdResource(1);
+            fm.beginTransaction()
+                    .add(R.id.head, head, head.getClass().getCanonicalName())
+                    .commit();
+
+            BodyPartFragment body = new BodyPartFragment();
+            body.setImageIds(AndroidImageAssets.getBodies());
+            body.setIndexIdResource(1);
+            fm.beginTransaction()
+                    .add(R.id.body, body, body.getClass().getCanonicalName())
+                    .commit();
+
+            BodyPartFragment leg = new BodyPartFragment();
+            leg.setImageIds(AndroidImageAssets.getLegs());
+            leg.setIndexIdResource(1);
+            fm.beginTransaction()
+                    .add(R.id.leg, leg, leg.getClass().getCanonicalName())
+                    .commit();
+
+        }
+
 
     }
 

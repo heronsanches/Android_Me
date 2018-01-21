@@ -29,13 +29,20 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-        <!--The container should be 180dp in height -->
         <FrameLayout
-            android:id="@+id/frag1"
+            android:id="@+id/head"
             android:layout_width="match_parent"
             android:layout_height="180dp"/>
 
+        <FrameLayout
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"/>
 
+        <FrameLayout
+            android:id="@+id/leg"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"/>
 
     </LinearLayout>
 
