@@ -27,42 +27,55 @@ import com.example.android.android_me.data.AndroidImageAssets;
 // This activity will display a custom Android image composed of three body parts: head, body, and legs
 public class AndroidMeActivity extends AppCompatActivity {
 
+    private BodyPartFragment head;
+    private BodyPartFragment body;
+    private BodyPartFragment leg;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Log.d("tag_me", getClass().getCanonicalName()+" onCreate");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android_me);
+        Log.d("tag_me", getClass().getCanonicalName()+" onCreate");
 
         if(savedInstanceState == null){
 
             FragmentManager fm = getSupportFragmentManager();
+            Bundle b = getIntent().getExtras();
 
-            BodyPartFragment head = new BodyPartFragment();
+            head = new BodyPartFragment();
             head.setImageIds(AndroidImageAssets.getHeads());
-            head.setIndexIdResource(1);
-            fm.beginTransaction()
-                    .add(R.id.head, head, head.getClass().getCanonicalName())
-                    .commit();
 
-            BodyPartFragment body = new BodyPartFragment();
+            body = new BodyPartFragment();
             body.setImageIds(AndroidImageAssets.getBodies());
-            body.setIndexIdResource(1);
+
+            leg = new BodyPartFragment();
+            leg.setImageIds(AndroidImageAssets.getLegs());
+
+            if(b != null){
+
+                Log.d("tag_me", getClass().getCanonicalName()+" onCreate b != null");
+
+                head.setIndexIdResource((Integer)b.get("headId"));
+                body.setIndexIdResource((Integer)b.get("bodyId"));
+                leg.setIndexIdResource((Integer)b.get("legId"));
+
+            }
+
             fm.beginTransaction()
-                    .add(R.id.body, body, body.getClass().getCanonicalName())
+                    .add(R.id.fl_head, head, head.getClass().getCanonicalName())
                     .commit();
 
-            BodyPartFragment leg = new BodyPartFragment();
-            leg.setImageIds(AndroidImageAssets.getLegs());
-            leg.setIndexIdResource(1);
             fm.beginTransaction()
-                    .add(R.id.leg, leg, leg.getClass().getCanonicalName())
+                    .add(R.id.fl_body, body, body.getClass().getCanonicalName())
+                    .commit();
+
+            fm.beginTransaction()
+                    .add(R.id.fl_leg, leg, leg.getClass().getCanonicalName())
                     .commit();
 
         }
-
 
     }
 

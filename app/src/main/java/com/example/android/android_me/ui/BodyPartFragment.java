@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.example.android.android_me.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * Created by Heron Sanches on 2018-01-16.
  */
 
-public class BodyPartFragment extends Fragment {
+public class BodyPartFragment extends Fragment{
 
     private List<Integer> imageIdResources;
     private int indexIdResource;
@@ -31,9 +32,10 @@ public class BodyPartFragment extends Fragment {
         Log.d("tag_me", getClass().getCanonicalName()+" onCreateView");
 
         View vr = inflater.inflate(R.layout.fragment_body_part, container, false);
-        final ImageView iv = (ImageView)vr.findViewById(R.id.iv1);
+        final ImageView iv = vr.findViewById(R.id.iv1);
 
         if(savedInstanceState != null){
+            Log.d("tag_me", getClass().getCanonicalName()+" savedInstanceState != null)");
 
             imageIdResources = savedInstanceState.getIntegerArrayList(BodyPartFragment.IMAGE_ID_RESOURCES);
             indexIdResource = savedInstanceState.getInt(BodyPartFragment.INDEX_ID_RESOURCE);
